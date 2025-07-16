@@ -7,7 +7,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await dotenv.load(fileName: ".env");
-  const supabaseUrl = "https://rioujdbucpmpwjnvzsqn.supabase.co";
+  const supabaseUrl = "https://koqcrhmuprjomjsmdiwf.supabase.co";
   final supabaseKey = dotenv.env["SUPABASE_KEY"]!;
   await Supabase.initialize(url: supabaseUrl, anonKey: supabaseKey);
 
