@@ -112,7 +112,7 @@ class FoodModel {
       rate: (json['rate'] as num?)?.toDouble() ?? 0.0,
       specialItems: json['specialItems'] ?? '',
       category: json['category'] ?? '',
-      kcal: json['kcal'] ?? '',
+      kcal: json['kcal'] ?? 0,
       time: json['time'] ?? '',
     );
   }

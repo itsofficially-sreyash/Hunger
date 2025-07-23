@@ -1,9 +1,11 @@
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:food_delivery_app/Pages/screens/Onboarding/onBoarding_screen.dart';
 import 'package:food_delivery_app/Pages/screens/auth/login_screen.dart';
 import 'package:food_delivery_app/Pages/screens/auth/signup_screen.dart';
-import 'package:food_delivery_app/Pages/screens/home/home_screen.dart';
+import 'package:food_delivery_app/Pages/screens/home/profile_screen.dart';
+import 'package:food_delivery_app/main.dart';
 import 'package:food_delivery_app/service/auth_service.dart';
 import 'package:food_delivery_app/widgets/custom_button.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -81,9 +83,10 @@ class _LoginScreenState extends State<LoginScreen> {
           ScaffoldMessenger.of(context).showSnackBar(snackBar);
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (_) => HomeScreen()),
+            MaterialPageRoute(builder: (_) => OnboardingScreen()),
           );
         } else {
+          print(result);
           setState(() {
             isLoading = false;
           });
@@ -112,86 +115,89 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Padding(
-        padding: const EdgeInsets.all(15.0),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            children: [
-              Image.asset(
-                "assets/login.jpg",
-                width: double.infinity,
-                height: 500,
-                fit: BoxFit.cover,
-              ),
-              TextFormField(
-                controller: emailController,
-                validator: _validateEmail,
-                focusNode: _emailFocus,
-                decoration: InputDecoration(
-                  labelText: "Email",
-                  border: OutlineInputBorder(),
+      body: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Padding(
+          padding: const EdgeInsets.all(15.0),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                Image.asset(
+                  "assets/login.jpg",
+                  width: double.infinity,
+                  height: 500,
+                  fit: BoxFit.cover,
                 ),
-              ),
-              SizedBox(height: 20),
-              TextFormField(
-                controller: passwordController,
-                obscureText: _obscureText,
-                validator: _validatePassword,
-                focusNode: _passFocus,
-                decoration: InputDecoration(
-                  labelText: "Password",
-                  border: OutlineInputBorder(),
-                  suffixIcon: IconButton(
-                    onPressed: () {
-                      setState(() {
-                        _obscureText = !_obscureText;
-                      });
-                    },
-                    icon: _obscureText
-                        ? Icon(Icons.visibility)
-                        : Icon(Icons.visibility_off),
+                TextFormField(
+                  controller: emailController,
+                  validator: _validateEmail,
+                  focusNode: _emailFocus,
+                  decoration: InputDecoration(
+                    labelText: "Email",
+                    border: OutlineInputBorder(),
                   ),
                 ),
-              ),
-              SizedBox(height: 40),
-              Container(
-                width: double.infinity,
-                height: 50,
-                child: CustomButton(
-                  onPressed: _handleSignIn,
-                  child: isLoading
-                      ? LoadingAnimationWidget.dotsTriangle(
-                          color: Colors.white,
-                          size: 30,
-                        )
-                      : Text(
-                          "Sign In",
-                          style: TextStyle(color: Colors.white, fontSize: 16),
-                        ),
-                ),
-              ),
-              SizedBox(height: 20),
-              RichText(
-                text: TextSpan(
-                  text: "Don't have an account? ",
-                  style: TextStyle(color: Colors.black54),
-                  children: [
-                    TextSpan(
-                      text: "Signup",
-                      style: TextStyle(color: Colors.blueAccent, fontSize: 16),
-                      recognizer: TapGestureRecognizer()
-                        ..onTap = () => Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => SignupScreen(),
-                          ),
-                        ),
+                SizedBox(height: 20),
+                TextFormField(
+                  controller: passwordController,
+                  obscureText: _obscureText,
+                  validator: _validatePassword,
+                  focusNode: _passFocus,
+                  decoration: InputDecoration(
+                    labelText: "Password",
+                    border: OutlineInputBorder(),
+                    suffixIcon: IconButton(
+                      onPressed: () {
+                        setState(() {
+                          _obscureText = !_obscureText;
+                        });
+                      },
+                      icon: _obscureText
+                          ? Icon(Icons.visibility)
+                          : Icon(Icons.visibility_off),
                     ),
-                  ],
+                  ),
                 ),
-              ),
-            ],
+                SizedBox(height: 40),
+                Container(
+                  width: double.infinity,
+                  height: 50,
+                  child: CustomButton(
+                    onPressed: _handleSignIn,
+                    child: isLoading
+                        ? LoadingAnimationWidget.dotsTriangle(
+                            color: Colors.white,
+                            size: 30,
+                          )
+                        : Text(
+                            "Sign In",
+                            style: TextStyle(color: Colors.white, fontSize: 16),
+                          ),
+                  ),
+                ),
+                SizedBox(height: 20),
+                RichText(
+                  text: TextSpan(
+                    text: "Don't have an account? ",
+                    style: TextStyle(color: Colors.black54),
+                    children: [
+                      TextSpan(
+                        text: "Signup",
+                        style: TextStyle(color: Colors.blueAccent, fontSize: 16),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () => Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => SignupScreen(),
+                            ),
+                          ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

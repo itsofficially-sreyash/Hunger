@@ -110,86 +110,89 @@ class _SignupScreenState extends State<SignupScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Padding(
-        padding: const EdgeInsets.all(15.0),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            children: [
-              Image.asset(
-                "assets/6343825.jpg",
-                width: double.infinity,
-                height: 500,
-                fit: BoxFit.cover,
-              ),
-              TextFormField(
-                controller: emailController,
-                focusNode: _emailFocus,
-                validator: _validateEmail,
-                decoration: InputDecoration(
-                  labelText: "Email",
-                  border: OutlineInputBorder(),
+      body: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Padding(
+          padding: const EdgeInsets.all(15.0),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                Image.asset(
+                  "assets/6343825.jpg",
+                  width: double.infinity,
+                  height: 500,
+                  fit: BoxFit.cover,
                 ),
-              ),
-              SizedBox(height: 20),
-              TextFormField(
-                controller: passwordController,
-                obscureText: _obscureText,
-                focusNode: _passwordFocus,
-                validator: _validatePassword,
-                decoration: InputDecoration(
-                  labelText: "Password",
-                  border: OutlineInputBorder(),
-                  suffixIcon: IconButton(
-                    onPressed: () {
-                      setState(() {
-                        _obscureText = !_obscureText;
-                      });
-                    },
-                    icon: _obscureText
-                        ? Icon(Icons.visibility)
-                        : Icon(Icons.visibility_off),
+                TextFormField(
+                  controller: emailController,
+                  focusNode: _emailFocus,
+                  validator: _validateEmail,
+                  decoration: InputDecoration(
+                    labelText: "Email",
+                    border: OutlineInputBorder(),
                   ),
                 ),
-              ),
-              SizedBox(height: 40),
-              Container(
-                width: double.infinity,
-                height: 50,
-                child: CustomButton(
-                  onPressed: _handleSignUp,
-                  child: isLoading
-                      ? LoadingAnimationWidget.fourRotatingDots(
-                          color: Colors.white,
-                          size: 30,
-                        )
-                      : Text(
-                          "Signup",
-                          style: TextStyle(fontSize: 16, color: Colors.white),
-                        ),
-                ),
-              ),
-              SizedBox(height: 20),
-              RichText(
-                text: TextSpan(
-                  text: "Already have an account? ",
-                  style: TextStyle(color: Colors.black54),
-                  children: [
-                    TextSpan(
-                      text: "Login",
-                      style: TextStyle(color: Colors.blueAccent, fontSize: 16),
-                      recognizer: TapGestureRecognizer()
-                        ..onTap = () => Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => LoginScreen(),
-                          ),
-                        ),
+                SizedBox(height: 20),
+                TextFormField(
+                  controller: passwordController,
+                  obscureText: _obscureText,
+                  focusNode: _passwordFocus,
+                  validator: _validatePassword,
+                  decoration: InputDecoration(
+                    labelText: "Password",
+                    border: OutlineInputBorder(),
+                    suffixIcon: IconButton(
+                      onPressed: () {
+                        setState(() {
+                          _obscureText = !_obscureText;
+                        });
+                      },
+                      icon: _obscureText
+                          ? Icon(Icons.visibility)
+                          : Icon(Icons.visibility_off),
                     ),
-                  ],
+                  ),
                 ),
-              ),
-            ],
+                SizedBox(height: 40),
+                Container(
+                  width: double.infinity,
+                  height: 50,
+                  child: CustomButton(
+                    onPressed: _handleSignUp,
+                    child: isLoading
+                        ? LoadingAnimationWidget.fourRotatingDots(
+                            color: Colors.white,
+                            size: 30,
+                          )
+                        : Text(
+                            "Signup",
+                            style: TextStyle(fontSize: 16, color: Colors.white),
+                          ),
+                  ),
+                ),
+                SizedBox(height: 20),
+                RichText(
+                  text: TextSpan(
+                    text: "Already have an account? ",
+                    style: TextStyle(color: Colors.black54),
+                    children: [
+                      TextSpan(
+                        text: "Login",
+                        style: TextStyle(color: Colors.blueAccent, fontSize: 16),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () => Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => LoginScreen(),
+                            ),
+                          ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
